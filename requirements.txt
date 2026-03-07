@@ -1,0 +1,10 @@
+pdfplumber
+pandas
+requests
+openpyxl
+spacy
+sentence-transformers
+scikit-learn
+aiohttp
+python-dotenv
+google-generativeai

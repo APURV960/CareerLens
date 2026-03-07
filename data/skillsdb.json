@@ -1,0 +1,12 @@
+{
+  "python": ["python"],
+  "machine learning": ["machine learning", "ml"],
+  "deep learning": ["deep learning", "neural networks"],
+  "aws": ["aws", "amazon web services"],
+  "docker": ["docker"],
+  "kubernetes": ["kubernetes", "k8s"],
+  "react": ["react", "reactjs"],
+  "node": ["node", "nodejs"],
+  "sql": ["sql", "postgresql", "mysql"],
+  "data science": ["data science"]
+}
