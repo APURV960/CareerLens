@@ -25,5 +25,4 @@ dist/
 Thumbs.db
 
 # Project-specific ignores
-data/
 mc.py
