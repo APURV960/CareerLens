@@ -1,0 +1,28 @@
+[Your Name]
+Apurva Anand
+[Your Address] Vellore
+[Your Email] apurva.anand789@gmail.com
+[Your Phone] 9608393303
+[Your LinkedIn Profile URL]
+[Your GitHub Profile URL]
+
+[Date]
+
+Wipro Hiring Team (or Hiring Manager, if known)
+Wipro Limited
+[Company Address, if known, otherwise omit]
+
+**Subject: Application for Java Backend Developer Position - Apurva Anand**
+
+Dear Wipro Hiring Team,
+
+As a highly motivated Computer Science undergraduate from VIT Vellore, I am writing to express my enthusiastic interest in the Java Backend Developer position at Wipro. While the job description requests significant experience, my academic background, strong foundational skills in Java, and hands-on project experience align well with the technical demands of building high-performance server-side applications.
+
+I possess a solid understanding of core Java programming, object-oriented principles, and data structures and algorithms. My experience extends to designing and implementing REST APIs, managing databases, and working with cloud platforms like Azure and AWS, as demonstrated through my internship at SAIL and various personal projects. Though my primary backend experience has been with Python (Django) and Node.js, I am a quick and eager learner, confident in my ability to rapidly master Java, Spring Boot, and Spring Cloud to contribute effectively to your team's cloud-ready microservices.
+
+My internship involved integrating machine learning models with web applications and engineering scalable systems, showcasing my capability in developing robust and efficient solutions. Projects like 'CareerLens' further highlight my ability to build complex backend logic and integrate various APIs to create functional, user-centric products.
+
+I am particularly drawn to Wipro's innovative work and would be thrilled to apply my foundational skills, problem-solving abilities, and strong drive to contribute to your backend development initiatives. Thank you for considering my application. I have attached my resume for your review and welcome the opportunity to discuss how I can add value to Wipro.
+
+Sincerely,
+Apurva Anand

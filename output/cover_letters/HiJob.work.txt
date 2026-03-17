@@ -1,0 +1,19 @@
+[Your Name]
+Apurva Anand
+Vellore | apurva.anand789@gmail.com | 9608393303 | LinkedIn | Github
+
+[Date]
+
+HiJob.work Hiring Team
+[Company Address, if known, otherwise skip]
+
+Dear HiJob.work Hiring Team,
+
+I am writing to express my keen interest in the Backend Developer position at HiJob.work. As a Computer Science undergraduate with a passion for building scalable and reliable server-side systems, I am eager to apply my skills in application logic, APIs, and database design to your team.
+
+My resume highlights extensive experience in developing backend services and API integrations using Python (Django), JavaScript (Node.js, Express.js), and TypeScript. During my internship at SAIL, I engineered scalable systems for large dataset management and optimized model performance, directly reflecting your need for reliable server-side development. Furthermore, my projects, such as CareerLens, showcase my ability to design and optimize database structures (PostgreSQL, MongoDB) and build robust API integrations with external services.
+
+I am confident that my hands-on experience and commitment to building functional, high-performance applications align perfectly with the requirements of this role. Thank you for your time and consideration. I look forward to the opportunity to discuss how I can contribute to HiJob.work.
+
+Sincerely,
+Apurva Anand

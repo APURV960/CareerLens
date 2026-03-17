@@ -1,0 +1,24 @@
+[Your Name]
+Apurva Anand
+Vellore | apurva.anand789@gmail.com | 9608393303 | LinkedIn | Github
+
+[Date]
+
+SBNRI Hiring Team
+SBNRI
+Gurgaon (Gurugram)
+
+**Subject: Application for Junior Backend Developer - Apurva Anand**
+
+Dear SBNRI Hiring Team,
+
+I am writing to express my enthusiastic interest in the Junior Backend Developer position at SBNRI. As a Computer Science undergraduate from VIT Vellore, with hands-on experience in building robust backend systems, particularly with Python, I am confident I meet the requirements for this role.
+
+My resume highlights extensive experience in Python development, database design (SQL and NoSQL), and API construction, directly aligning with your requirements for designing services, APIs, and data pipelines. During my internship at SAIL, I engineered scalable systems and integrated machine learning models with Django, honing my skills in building efficient, data-driven applications. Projects like CareerLens further demonstrate my ability to leverage Python, PostgreSQL, and various APIs to create functional and intelligent backend solutions.
+
+I am particularly drawn to SBNRI's mission of simplifying financial life for NRIs and the dynamic environment of a fast-growing fintech startup. My passion lies in turning ideas into usable products by developing reliable and efficient backend solutions, and I am eager to contribute my skills and enthusiasm to your team.
+
+Thank you for considering my application. I am eager to learn more about this opportunity and discuss how my backend expertise can benefit SBNRI.
+
+Sincerely,
+Apurva Anand

@@ -1,0 +1,26 @@
+[Your Name]
+Apurva Anand
+Vellore | apurva.anand789@gmail.com | 9608393303 | LinkedIn | Github
+
+[Date]
+
+Hiring Manager
+Best Infosystems Ltd.
+[Company Address, if known, otherwise omit]
+
+**Subject: Application for Java Backend Developer Position**
+
+Dear Hiring Manager,
+
+I am writing to express my enthusiastic interest in the Java Backend Developer position at Best Infosystems Ltd. As a dedicated Computer Science undergraduate with a strong foundation in object-oriented programming, data structures, and algorithms, I am eager to apply my skills and passion for building robust backend systems to your team.
+
+My academic background and practical experience have equipped me with proficiency in Java, including core concepts like concurrent programming, which are crucial for high-performance backend development. While my internship experience involved Python-based frameworks, I have a solid understanding of database design, REST APIs, and scalable system architecture, and I am actively expanding my expertise in Spring Boot and microservices, aligning with the technologies outlined in your job description.
+
+During my internship at SAIL, I gained hands-on experience in integrating machine learning models with web applications and engineering scalable systems for large dataset management. My projects, such as CareerLens, further demonstrate my ability to develop functional backend solutions and work with complex APIs and databases like PostgreSQL.
+
+I am confident that my strong analytical abilities, problem-solving skills, and a keen desire to learn make me a promising candidate. I am particularly excited about the opportunity to contribute to Best Infosystems Ltd. and grow my expertise in Java backend development.
+
+Thank you for considering my application. I have attached my resume for your review and welcome the opportunity to discuss how I can contribute to your team.
+
+Sincerely,
+Apurva Anand

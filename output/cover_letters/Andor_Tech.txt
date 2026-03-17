@@ -1,0 +1,22 @@
+[Your Name]
+Apurva Anand
+Vellore | apurva.anand789@gmail.com | 9608393303 | LinkedIn | Github
+
+[Date]
+
+Hiring Manager
+Andor Tech
+[Company Address - If known, otherwise omit]
+
+Dear Hiring Manager,
+
+I am writing to express my enthusiastic interest in the Backend Developer position at Andor Tech, as advertised. As a highly motivated Computer Science undergraduate with a passion for building functional and scalable applications, I am eager to contribute my strong foundational skills and hands-on experience to your team.
+
+While my primary experience has been with Python (Django), JavaScript (Node.js, Express.js), and TypeScript frameworks, I am confident that my robust understanding of data structures, algorithms, object-oriented programming, and database design directly aligns with the core requirements of a backend role. My internship at SAIL involved integrating machine learning models with Django and engineering scalable systems for large dataset management, demonstrating my ability to deliver real-time, AI-driven solutions and manage complex backend processes.
+
+I am a quick learner and eager to expand my expertise into .NET technologies. My projects, such as CareerLens, where I built an AI system using Python, PostgreSQL, and various APIs, highlight my proficiency in developing robust backend systems, designing REST APIs, and ensuring effective database management. I am comfortable working across the full backend stack and committed to turning ideas into usable products.
+
+I am actively seeking an opportunity to contribute to a dynamic team and am confident that my problem-solving abilities and dedication to mastering new technologies would make me a valuable asset to Andor Tech. Thank you for your time and consideration. I look forward to discussing how my skills and enthusiasm can benefit your team.
+
+Sincerely,
+Apurva Anand
