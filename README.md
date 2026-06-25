@@ -252,56 +252,116 @@ http://localhost:8000
 
 ---
 
-## 📸 Screenshots
+# Setup PostgreSQL
 
-Add screenshots of:
+Create database:
 
-* Landing Page
-* Resume Upload
-* Dashboard
-* Results Page
-* Skill Gap Analysis
-* Cover Letter Generator
-* Search History
+```sql
+CREATE DATABASE ai_agent;
+```
 
----
+Create tables:
 
-## 🔮 Future Improvements
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email TEXT
+);
 
-* ATS Resume Score
-* Resume Optimizer
-* AI Interview Preparation
-* Multi-language Resume Support
-* LinkedIn Profile Analysis
-* Company Insights
-* Salary Prediction
-* Email Automation
-* Docker Deployment
-* Authentication & User Accounts
-* Cloud Storage Integration
-* Background Job Queue
-* Admin Dashboard
+CREATE TABLE resumes (
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+    content TEXT
+);
 
----
+CREATE TABLE job_results (
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+    job_title TEXT,
+    company TEXT,
+    match_score FLOAT
+);
 
-## 🤝 Contributing
-
-Contributions are welcome!
-
-Feel free to fork the project, open issues, or submit pull requests to improve CareerLens.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
+CREATE TABLE applications (
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+    company TEXT,
+    role TEXT,
+    cover_letter TEXT
+);
+```
 
 ---
 
-## 👨‍💻 Author
+# Prepare RAG Knowledge Base
 
-**Apurva Anand**
+Add career documents inside:
 
-B.Tech Computer Science Engineering
+```
+data/career_docs/
+```
 
-Passionate about AI, Full-Stack Development, NLP, and building intelligent software systems.
+Example files:
+
+```
+ml_engineer.txt
+data_scientist.txt
+backend_developer.txt
+devops_engineer.txt
+```
+
+Then run:
+
+```bash
+python -m src.rag.ingest_docs
+```
+
+---
+
+# Run the AI Agent
+
+```bash
+python src/main_agent.py
+```
+
+Example output:
+
+```
+Goal: Find best jobs and prepare applications
+
+Agent action: analyze_resume
+Agent action: search_jobs
+Agent action: rank_jobs
+Agent action: analyze_skill_gap
+Agent action: generate_cover_letters
+```
+
+Generated files:
+
+```
+output/job_matches.xlsx
+output/cover_letters/*.txt
+```
+
+---
+
+# Example Workflow
+
+1. Upload resume
+2. Extract skills
+3. Discover relevant jobs
+4. Rank opportunities using embeddings
+5. Detect missing skills
+6. Generate tailored cover letters
+7. Export job matches
+
+---
+
+# Future Improvements
+
+* Web dashboard (FastAPI + React)
+* Resume optimization suggestions
+* Application tracking system
+* Scheduled job alerts
+* Advanced agent planning
+* Cached LLM responses to reduce API usage
