@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Results - CareerLens</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"></span> CareerLens
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="upload.html" class="nav-link">Upload</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="history.html" class="nav-link">History</a></li>
+                    <li class="session-badge">
+                        <span class="session-indicator"></span>
+                        <span id="sessionText">Loading...</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="app-content">
+        <div class="container">
+            <!-- Results Header -->
+            <div class="results-header-bar">
+                <div>
+                    <h1 style="margin-bottom: 0.25rem;">Discovery Results</h1>
+                    <p style="margin-bottom: 0;" id="resultsSubheading">Analyzing jobs discovered by the AI Agent</p>
+                </div>
+                <div>
+                    <button class="btn btn-accent" id="exportBtn" disabled>
+                        <span>📊 Export Matches (Excel)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section 1: Matched Jobs -->
+            <section class="results-section">
+                <h2>Matched Opportunities</h2>
+                <p>The following job openings were discovered and ranked based on semantic relevance to your resume text.</p>
+                
+                <div class="table-wrapper">
+                    <table class="jobs-table" id="jobsTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">Job Title & Details</th>
+                                <th>Company</th>
+                                <th>Location & Setting</th>
+                                <th>Experience Level</th>
+                                <th>Match Strength</th>
+                                <th>Tracking Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jobsTableBody">
+                            <tr>
+                                <td colspan="7" class="text-center" style="color: var(--text-muted); padding: 2rem;">Loading matched jobs...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 2: Career Guidance Dashboard (Skill Gap) -->
+            <section class="results-section">
+                <h2>Career Guidance Dashboard</h2>
+                <p>Curated learning resources and difficulty analysis to help you close your identified skill gaps.</p>
+                
+                <div style="margin-bottom: 2rem; display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; flex-wrap: wrap;">
+                    <div class="glass-card">
+                        <h3>📈 Market Demands</h3>
+                        <p style="font-size: 0.9rem; margin-bottom: 1.5rem; color: var(--text-muted);">The frequency and demand percentage of skills across all matched positions.</p>
+                        <div class="demand-list" id="marketDemandList">
+                            <div style="color: var(--text-muted);">Loading market demand...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card border-accent" style="display: flex; flex-direction: column; justify-content: center;">
+                        <span style="font-size: 2.5rem; margin-bottom: 1rem; display: block;"></span>
+                        <h4>Upskilling Strategy</h4>
+                        <p style="font-size: 0.85rem; margin-bottom: 0;">
+                            Focus on the high-demand, low-difficulty skills first to unlock the maximum number of matched jobs in the shortest time.
+                        </p>
+                    </div>
+                </div>
+
+                <h3>⚠️ Identified Gaps & Course Recommendations</h3>
+                <div class="skills-guidance-grid" id="skillsGuidanceGrid">
+                    <div style="color: var(--text-muted); grid-column: 1 / -1; text-align: center; padding: 2rem 0;">Loading recommendations...</div>
+                </div>
+            </section>
+
+            <!-- Section 3: Generated Cover Letters -->
+            <section class="results-section">
+                <h2>Tailored Cover Letters</h2>
+                <p>AI-generated cover letters tailored specifically to your experience and the matched roles. Edit inline before copying or downloading.</p>
+                
+                <div id="lettersContainer">
+                    <div style="color: var(--text-muted); padding: 1.5rem 0;">Loading cover letters...</div>
+                </div>
+            </section>
+
+            <!-- Section 4: Search Run Information -->
+            <section class="results-section" style="border-top: 1px solid var(--border-color); padding-top: 2rem;">
+                <h2>Metadata Details</h2>
+                <div class="metadata-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <div class="metadata-item">
+                        <div class="metadata-label">Search Run ID</div>
+                        <div class="metadata-value" id="runIdVal" style="font-family: var(--font-mono); font-size: 0.85rem;">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Status</div>
+                        <div class="metadata-value" id="runStatusVal">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Execution Started</div>
+                        <div class="metadata-value" id="runStartedVal">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Execution Completed</div>
+                        <div class="metadata-value" id="runCompletedVal">-</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2026 CareerLens.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div class="alert-container" id="alertContainer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/results.js"></script>
+</body>
+</html>

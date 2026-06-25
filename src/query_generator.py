@@ -1,36 +1,52 @@
 import json
-from sentence_transformers import SentenceTransformer
+import threading
+import numpy as np
+from services.embedding_service import EmbeddingService
 from sklearn.metrics.pairwise import cosine_similarity
 
-
-model = SentenceTransformer("all-MiniLM-L6-v2")
+_roles = None
+_role_embeddings = None
+_cache_lock = threading.Lock()
 
 
 def load_roles():
+    global _roles
+    if _roles is None:
+        with open("data/job_roles.json", encoding="utf-8") as f:
+            _roles = json.load(f)
+    return _roles
 
-    with open("data/job_roles.json") as f:
-        return json.load(f)
+
+def get_cached_role_embeddings():
+    global _roles, _role_embeddings
+
+    if _role_embeddings is None:
+        with _cache_lock:
+            if _role_embeddings is None:
+                roles = load_roles()
+                emb_service = EmbeddingService()
+                _role_embeddings = emb_service.encode(roles)
+
+    return _roles, _role_embeddings
 
 
-def generate_queries(skills):
+def generate_queries(resume_text, top_k=5):
 
-    roles = load_roles()
+    if not resume_text:
+        return []
 
-    role_embeddings = model.encode(roles)
+    roles, role_embeddings = get_cached_role_embeddings()
 
-    queries = []
+    emb_service = EmbeddingService()
 
-    for skill in skills:
+    resume_embedding = emb_service.encode([resume_text])
 
-        skill_embedding = model.encode([skill])
+    similarities = cosine_similarity(
+        resume_embedding,
+        role_embeddings
+    )[0]
 
-        similarities = cosine_similarity(
-            skill_embedding,
-            role_embeddings
-        )[0]
+    top_indices = np.argsort(similarities)[::-1][:top_k]
 
-        best_index = similarities.argmax()
+    return [roles[i] for i in top_indices]
 
-        queries.append(roles[best_index])
-
-    return list(set(queries))

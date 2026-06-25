@@ -1,18 +1,37 @@
 import os
 from google import genai
 import dotenv
+from agent_utils.retry_helper import retry_with_backoff
+
 dotenv.load_dotenv()   
 
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
-)
+_client = None
 
+def _get_client():
+    global _client
+    if _client is None:
+        _client = genai.Client(
+            api_key=os.getenv("GEMINI_API_KEY")
+        )
+    return _client
+
+def _is_quota_error(exc: Exception) -> bool:
+    msg = str(exc).lower()
+    return ("resource_exhausted" in msg) or ("quota" in msg) or ("429" in msg) or ("503" in msg) or ("unavailable" in msg)
+
+@retry_with_backoff(max_retries=3, initial_delay=2.0, backoff_factor=2.0)
+def _call_gemini_with_retry(prompt):
+    client = _get_client()
+    response = client.models.generate_content(
+        model="gemini-3.5-flash",
+        contents=prompt
+    )
+    return response.text
 
 def generate_cover_letter(resume_text, job):
-    def _is_quota_error(exc: Exception) -> bool:
-        msg = str(exc).lower()
-        return ("resource_exhausted" in msg) or ("quota" in msg) or ("429" in msg)
-
+    """
+    Generates a concise, tailored cover letter using Gemini, with retry logic and fallback.
+    """
     def _fallback_letter() -> str:
         title = job.get("title", "the role")
         company = job.get("company", "your company")
@@ -42,13 +61,9 @@ Keep it concise and tailored.
 """
 
     try:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt
-        )
-        return response.text
+        return _call_gemini_with_retry(prompt)
     except Exception as e:
-        # If Gemini quota/rate limit is hit, return a usable template instead of failing.
+        # Fallback to template cover letter if Gemini API calls fail permanently
         if _is_quota_error(e):
             return _fallback_letter()
         raise

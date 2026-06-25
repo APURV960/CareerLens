@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search History - CareerLens</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"></span> CareerLens
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="upload.html" class="nav-link">Upload</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="history.html" class="nav-link active">History</a></li>
+                    <li class="session-badge">
+                        <span class="session-indicator"></span>
+                        <span id="sessionText">Loading...</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="app-content">
+        <div class="container" style="max-width: 900px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h1 style="margin-bottom: 0.25rem;">Search History</h1>
+                    <p style="margin-bottom: 0;">Review your previous AI agent runs and matched jobs.</p>
+                </div>
+                <div>
+                    <button class="btn btn-secondary btn-danger" id="clearSessionBtn" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                        <span>⚠️ Reset Session (Fresh Start)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loader -->
+            <div id="historyLoader" class="text-center" style="padding: 3rem 0;">
+                <div class="spinner" style="margin: 0 auto 1rem; width: 40px; height: 40px; border-width: 3px;"></div>
+                <p style="color: var(--text-muted);">Fetching history log from database...</p>
+            </div>
+
+            <!-- No Runs Found State -->
+            <div class="glass-card text-center" id="emptyHistoryState" style="display: none; padding: 4rem 2rem;">
+                <span style="font-size: 4rem; display: block; margin-bottom: 1.5rem;">📂</span>
+                <h2>No Search Runs Found</h2>
+                <p style="max-width: 500px; margin: 0 auto 2rem;">
+                    You haven't run any job search queries yet. To search for jobs, you need to upload a resume first and then trigger the AI agent.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <a href="upload.html" class="btn btn-primary">
+                        <span>📤 Upload Resume</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Runs Grid -->
+            <div class="history-grid" id="historyGrid" style="display: none;">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2026 CareerLens.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div class="alert-container" id="alertContainer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/history.js"></script>
+</body>
+</html>

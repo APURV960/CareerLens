@@ -1,134 +1,188 @@
-# CareerLens
+# 🎯 CareerLens
 
-An **AI-powered career assistant** that analyzes a user's resume, discovers relevant job opportunities, identifies skill gaps, and automatically generates tailored cover letters.
-
-The system combines **AI agents, semantic search, Retrieval-Augmented Generation (RAG), and persistent memory** to automate the job discovery workflow.
-
----
-
-# Features
-
-### Resume Intelligence
-
-* Parses and analyzes resumes
-* Extracts relevant skills using NLP
-* Understands user expertise and experience
-
-### Automated Job Discovery
-
-* Searches job portals using skill-based queries
-* Filters and ranks jobs based on resume similarity
-* Uses semantic similarity for better matching
-
-### Skill Gap Analysis
-
-* Compares job requirements with resume skills
-* Identifies missing or in-demand skills
-* Provides career improvement suggestions
-
-### AI Cover Letter Generation
-
-* Generates tailored cover letters for each job
-* Uses Gemini API with fallback template support
-
-### Career Knowledge Assistant (RAG)
-
-* Uses vector search over curated career knowledge documents
-* Provides grounded career advice instead of hallucinated answers
-
-### Persistent Agent Memory
-
-* Stores results and user data using PostgreSQL
-* Tracks job recommendations and generated applications
-
-### Structured Job Export
-
-* Saves ranked job results to Excel
-* Easy to review and track opportunities
+> **AI-Powered Career Discovery Platform**
+>
+> Upload your resume, discover relevant jobs, identify skill gaps, generate personalized cover letters, and track your job search—all in one place.
 
 ---
 
-# System Architecture
+## 📖 Overview
 
-```
-User Resume
-      ↓
-Resume Parser
-      ↓
-Skill Extraction
-      ↓
-Job Search Engine
-      ↓
-Semantic Job Ranking
-      ↓
-Skill Gap Analysis
-      ↓
-AI Agent Tools
-   ├ Cover Letter Generator
-   └ Career Advice (RAG)
-      ↓
-Results Export + Memory Storage
-```
+CareerLens is an end-to-end AI-powered career assistant that helps job seekers analyze their resumes, discover matching job opportunities, identify missing skills, and generate tailored application materials.
+
+Unlike traditional job portals, CareerLens combines semantic search, natural language processing, vector embeddings, and large language models to understand a candidate's profile and recommend opportunities based on overall relevance rather than simple keyword matching.
 
 ---
 
-# Project Structure
+## ✨ Features
 
-```
-CareerLens
-│
-├ data
-│   └ career_docs/           # Knowledge base for RAG
-│
-├ output
-│   ├ cover_letters/         # Generated cover letters
-│   └ job_matches.xlsx       # Ranked job results
-│
-├ src
-│
-│   ├ agent
-│   │   ├ executor.py
-│   │   ├ planner.py
-│   │   └ tools_registry.py
-│
-│   ├ rag
-│   │   ├ rag_agent.py
-│   │   ├ vector_store.py
-│   │   └ ingest_docs.py
-│
-│   ├ memory
-│   │   ├ database.py
-│   │   └ memory_store.py
-│
-│   ├ tools
-│   │   ├ resume_tool.py
-│   │   ├ job_search_tool.py
-│   │   ├ ranking_tool.py
-│   │   ├ skill_gap_tool.py
-│   │   └ cover_letter_tool.py
-│
-│   ├ main_agent.py
-│   └ excel_writer.py
-│
-├ requirements.txt
-└ README.md
-```
+### 📄 Resume Analysis
+
+* Upload PDF resumes
+* Automatic resume parsing
+* AI-powered skill extraction
+* Resume versioning
+* Session-based user management
 
 ---
 
-# Tech Stack
+### 🔍 AI Job Discovery
 
+* Semantic job search
+* Intelligent query generation
+* Job ranking using embedding similarity
+* Company, location, salary, and experience matching
+* Direct job application links
+
+---
+
+### 📊 Skill Gap Analysis
+
+* Compare resume skills against job market demand
+* Identify missing skills
+* Market demand visualization
+* Learning roadmap
+* Curated learning resources
+
+---
+
+### ✉ AI Cover Letter Generator
+
+* Personalized cover letters
+* Editable before download
+* Copy to clipboard
+* Download as text
+* Automatic fallback generation if LLM services are unavailable
+
+---
+
+### 📈 Search History
+
+* Store previous searches
+* Resume version history
+* View historical job matches
+* Revisit previous analyses
+
+---
+
+### 📂 Application Tracking
+
+Track the status of each application:
+
+* Generated
+* Applied
+* Interview
+* Offer
+* Rejected
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+* HTML5
+* CSS3
+* Vanilla JavaScript
+
+### Backend
+
+* FastAPI
 * Python
-* Sentence Transformers
-* FAISS (vector search)
-* spaCy (NLP)
-* Gemini API
+
+### Database
+
 * PostgreSQL
-* Pandas
+
+### AI & NLP
+
+* Google Gemini API
+* SentenceTransformers
+* spaCy
+* FAISS Vector Search
+
+### Job Search
+
+* Adzuna Jobs API
+
+### Storage
+
+* PostgreSQL
+* Local file storage (development)
 
 ---
 
-# Installation
+## 🏗 Project Structure
+
+```text
+CareerLens/
+│
+├── backend/
+│   ├── auth/
+│   ├── repositories/
+│   ├── routes/
+│   ├── services/
+│   ├── schema.sql
+│   └── main.py
+│
+├── frontend/
+│   ├── css/
+│   ├── js/
+│   ├── index.html
+│   ├── upload.html
+│   ├── dashboard.html
+│   ├── results.html
+│   └── history.html
+│
+├── src/
+│   ├── agent/
+│   ├── rag/
+│   ├── services/
+│   ├── tools/
+│   ├── memory/
+│   └── main_agent.py
+│
+├── data/
+├── output/
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## 🚀 Workflow
+
+```text
+Upload Resume
+        │
+        ▼
+Resume Parsing
+        │
+        ▼
+Skill Extraction
+        │
+        ▼
+Semantic Job Search
+        │
+        ▼
+Job Ranking
+        │
+        ▼
+Skill Gap Analysis
+        │
+        ▼
+Cover Letter Generation
+        │
+        ▼
+Results Dashboard
+        │
+        ▼
+Application Tracking
+```
+
+---
+
+## ⚡ Installation
 
 Clone the repository:
 
@@ -137,21 +191,21 @@ git clone https://github.com/yourusername/CareerLens.git
 cd CareerLens
 ```
 
-Create virtual environment:
+Create a virtual environment:
 
 ```bash
 python -m venv venv
 ```
 
-Activate environment:
+Activate the environment:
 
-Windows:
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-Mac/Linux:
+### Linux/macOS
 
 ```bash
 source venv/bin/activate
@@ -163,139 +217,91 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Download spaCy model:
+---
+
+## ⚙ Configuration
+
+Create a `.env` file:
+
+```env
+APP_ID=YOUR_ADZUNA_APP_ID
+APP_KEY=YOUR_ADZUNA_APP_KEY
+
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+
+DB_PASSWORD=YOUR_POSTGRES_PASSWORD
+```
+
+Configure PostgreSQL and execute the schema before running the application.
+
+---
+
+## ▶ Running the Application
+
+Start the backend:
 
 ```bash
-python -m spacy download en_core_web_sm
+python backend/main.py
+```
+
+Open the application:
+
+```
+http://localhost:8000
 ```
 
 ---
 
-# Environment Variables
+## 📸 Screenshots
 
-Create a `.env` file in the project root.
+Add screenshots of:
 
-```
-APP_ID=your_adzuna_app_id
-APP_KEY=your_adzuna_app_key
-
-GEMINI_API_KEY=your_gemini_api_key
-
-DB_PASSWORD=your_postgres_password
-```
-
----
-
-# Setup PostgreSQL
-
-Create database:
-
-```sql
-CREATE DATABASE ai_agent;
-```
-
-Create tables:
-
-```sql
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    email TEXT
-);
-
-CREATE TABLE resumes (
-    id SERIAL PRIMARY KEY,
-    user_id INT,
-    content TEXT
-);
-
-CREATE TABLE job_results (
-    id SERIAL PRIMARY KEY,
-    user_id INT,
-    job_title TEXT,
-    company TEXT,
-    match_score FLOAT
-);
-
-CREATE TABLE applications (
-    id SERIAL PRIMARY KEY,
-    user_id INT,
-    company TEXT,
-    role TEXT,
-    cover_letter TEXT
-);
-```
+* Landing Page
+* Resume Upload
+* Dashboard
+* Results Page
+* Skill Gap Analysis
+* Cover Letter Generator
+* Search History
 
 ---
 
-# Prepare RAG Knowledge Base
+## 🔮 Future Improvements
 
-Add career documents inside:
-
-```
-data/career_docs/
-```
-
-Example files:
-
-```
-ml_engineer.txt
-data_scientist.txt
-backend_developer.txt
-devops_engineer.txt
-```
-
-Then run:
-
-```bash
-python -m src.rag.ingest_docs
-```
+* ATS Resume Score
+* Resume Optimizer
+* AI Interview Preparation
+* Multi-language Resume Support
+* LinkedIn Profile Analysis
+* Company Insights
+* Salary Prediction
+* Email Automation
+* Docker Deployment
+* Authentication & User Accounts
+* Cloud Storage Integration
+* Background Job Queue
+* Admin Dashboard
 
 ---
 
-# Run the AI Agent
+## 🤝 Contributing
 
-```bash
-python src/main_agent.py
-```
+Contributions are welcome!
 
-Example output:
-
-```
-Goal: Find best jobs and prepare applications
-
-Agent action: analyze_resume
-Agent action: search_jobs
-Agent action: rank_jobs
-Agent action: analyze_skill_gap
-Agent action: generate_cover_letters
-```
-
-Generated files:
-
-```
-output/job_matches.xlsx
-output/cover_letters/*.txt
-```
+Feel free to fork the project, open issues, or submit pull requests to improve CareerLens.
 
 ---
 
-# Example Workflow
+## 📄 License
 
-1. Upload resume
-2. Extract skills
-3. Discover relevant jobs
-4. Rank opportunities using embeddings
-5. Detect missing skills
-6. Generate tailored cover letters
-7. Export job matches
+This project is licensed under the MIT License.
 
 ---
 
-# Future Improvements
+## 👨‍💻 Author
 
-* Web dashboard (FastAPI + React)
-* Resume optimization suggestions
-* Application tracking system
-* Scheduled job alerts
-* Advanced agent planning
-* Cached LLM responses to reduce API usage
+**Apurva Anand**
+
+B.Tech Computer Science Engineering
+
+Passionate about AI, Full-Stack Development, NLP, and building intelligent software systems.

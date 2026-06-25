@@ -7,6 +7,11 @@ sentence-transformers
 scikit-learn
 aiohttp
 python-dotenv
+google-genai
 google-generativeai
 psycopg2-binary
 faiss-cpu
+fastapi
+uvicorn
+python-multipart
+pyjwt

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Dashboard - CareerLens</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"></span> CareerLens
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="upload.html" class="nav-link">Upload</a></li>
+                    <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+                    <li><a href="history.html" class="nav-link">History</a></li>
+                    <li class="session-badge">
+                        <span class="session-indicator"></span>
+                        <span id="sessionText">Loading...</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="app-content">
+        <div class="container">
+            <!-- Active Resume Status Header -->
+            <div id="resumeChecking" style="color: var(--text-muted); text-align: center; padding: 3rem 0;">
+                <div class="spinner" style="width: 30px; height: 30px; border-width: 2px;"></div>
+                <p>Authenticating session & loading database stats...</p>
+            </div>
+            
+            <!-- If No Resume State -->
+            <div id="noResumeState" style="display: none; max-width: 600px; margin: 2rem auto;">
+                <div class="glass-card text-center" style="border-top: 3px solid var(--color-danger);">
+                    <span style="font-size: 3rem; display: block; margin-bottom: 1rem;">⚠️</span>
+                    <h2>No Active Resume Found</h2>
+                    <p style="margin-bottom: 2rem;">
+                        You must upload a PDF resume before you can access the AI Career Dashboard. CareerLens uses your resume content to find matching roles, compute skill gaps, and generate cover letters.
+                    </p>
+                    <a href="upload.html" class="btn btn-primary">
+                        <span>📤 Upload Resume Now</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- If Resume Linked (Dashboard Interface) -->
+            <div id="hasResumeState" style="display: none;">
+                <!-- Header Stats Summary -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h1 style="margin-bottom: 0.25rem;">AI Career Agent Dashboard</h1>
+                        <p style="margin-bottom: 0;" id="activeVerText">Active Resume Version Linked</p>
+                    </div>
+                    <div style="display: flex; gap: 0.75rem;">
+                        <a href="upload.html" class="btn btn-secondary">
+                            <span>📤 Upload New Version</span>
+                        </a>
+                        <button class="btn btn-primary" id="dashboardRunBtn">
+                            <span>🤖 Trigger Agent Run</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KPI Grid -->
+                <div class="dashboard-grid">
+                    <!-- Resume Score Card -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-card-icon">🧠</span>
+                        <div class="dashboard-card-label">Resume Strength Score</div>
+                        <div class="dashboard-card-value" id="statResumeScore">-</div>
+                        <div class="dashboard-card-indicator" style="color: var(--color-emerald);">
+                            <span>✓</span> Based on extracted skills
+                        </div>
+                    </div>
+                    
+                    <!-- Jobs Discovered Card -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-card-icon">🔍</span>
+                        <div class="dashboard-card-label">Jobs Found (Latest Run)</div>
+                        <div class="dashboard-card-value" id="statJobsFound">-</div>
+                        <div class="dashboard-card-indicator">
+                            <span>⚡</span> Updated in last agent pass
+                        </div>
+                    </div>
+                    
+                    <!-- Highest Match Card -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-card-icon"></span>
+                        <div class="dashboard-card-label">Highest Job Match</div>
+                        <div class="dashboard-card-value" id="statHighestMatch">-</div>
+                        <div class="dashboard-card-indicator">
+                            <span style="color: var(--color-primary);">★</span> Weighted confidence value
+                        </div>
+                    </div>
+
+                    <!-- Missing Skills Card -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-card-icon">⚠️</span>
+                        <div class="dashboard-card-label">Skill Gaps Identified</div>
+                        <div class="dashboard-card-value" id="statMissingSkills">-</div>
+                        <div class="dashboard-card-indicator" style="color: var(--color-warning);">
+                            <span>⚠</span> Skills to acquire
+                        </div>
+                    </div>
+
+                    <!-- Search Runs Card -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-card-icon">📂</span>
+                        <div class="dashboard-card-label">Runs Executed</div>
+                        <div class="dashboard-card-value" id="statSearchRuns">-</div>
+                        <div class="dashboard-card-indicator">
+                            <span>🔄</span> Historical trace logs
+                        </div>
+                    </div>
+
+                    <!-- Applications Sent Card -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-card-icon">✉</span>
+                        <div class="dashboard-card-label">Applications Sent</div>
+                        <div class="dashboard-card-value" id="statApplicationsSent">-</div>
+                        <div class="dashboard-card-indicator" style="color: var(--color-teal);">
+                            <span>✉</span> Applied / Interview / Offer
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main split panels -->
+                <div class="dashboard-split-layout">
+                    <!-- Left: Funnel Chart & Trigger controls -->
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <!-- Tracking Funnel Visualization -->
+                        <div class="glass-card">
+                            <h3>Application Tracker Pipeline</h3>
+                            <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">A real-time funnel representing your application tracking statuses across matched jobs.</p>
+                            
+                            <div class="tracker-visual-container">
+                                <div class="tracker-funnel">
+                                    <div class="tracker-funnel-row">
+                                        <div class="tracker-funnel-label">Generated</div>
+                                        <div class="tracker-funnel-bar-outer">
+                                            <div class="tracker-funnel-bar-inner" id="barGenerated" style="width: 0%;"></div>
+                                        </div>
+                                        <div class="tracker-funnel-count" id="countGenerated">0</div>
+                                    </div>
+                                    <div class="tracker-funnel-row">
+                                        <div class="tracker-funnel-label">Applied</div>
+                                        <div class="tracker-funnel-bar-outer">
+                                            <div class="tracker-funnel-bar-inner applied" id="barApplied" style="width: 0%;"></div>
+                                        </div>
+                                        <div class="tracker-funnel-count" id="countApplied">0</div>
+                                    </div>
+                                    <div class="tracker-funnel-row">
+                                        <div class="tracker-funnel-label">Interview</div>
+                                        <div class="tracker-funnel-bar-outer">
+                                            <div class="tracker-funnel-bar-inner interview" id="barInterview" style="width: 0%;"></div>
+                                        </div>
+                                        <div class="tracker-funnel-count" id="countInterview">0</div>
+                                    </div>
+                                    <div class="tracker-funnel-row">
+                                        <div class="tracker-funnel-label">Offer</div>
+                                        <div class="tracker-funnel-bar-outer">
+                                            <div class="tracker-funnel-bar-inner offer" id="barOffer" style="width: 0%;"></div>
+                                        </div>
+                                        <div class="tracker-funnel-count" id="countOffer">0</div>
+                                    </div>
+                                    <div class="tracker-funnel-row">
+                                        <div class="tracker-funnel-label">Rejected</div>
+                                        <div class="tracker-funnel-bar-outer">
+                                            <div class="tracker-funnel-bar-inner rejected" id="barRejected" style="width: 0%;"></div>
+                                        </div>
+                                        <div class="tracker-funnel-count" id="countRejected">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Run Control Card -->
+                        <div class="glass-card border-accent">
+                            <h3>AI Career Agent execution</h3>
+                            <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">
+                                Run the background agent to refresh matched opportunities. The agent searches live portals, computes semantic relevance score maps, compiles skill gap roadmaps, and builds cover letters.
+                            </p>
+                            <button class="btn btn-primary" id="runAgentBtn">
+                                <span>🤖 Execute Job Agent Pipeline</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Recent Activity Log -->
+                    <div class="glass-card">
+                        <h3>Recent Activity Log</h3>
+                        <p style="font-size: 0.85rem; margin-bottom: 1.5rem; color: var(--text-muted);">Real-time database triggers on this session.</p>
+                        
+                        <div class="activity-list" id="activityList">
+                            <!-- Populated dynamically -->
+                            <div style="color: var(--text-muted); text-align: center; padding: 2rem 0;">No recent actions logged.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Fullscreen Processing Overlay -->
+    <div class="overlay" id="processingOverlay">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <h2 id="processingTitle">AI Career Agent Running</h2>
+            <p id="processingSubtitle" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">Please do not close this window. Executing pipeline tasks...</p>
+            
+            <div class="status-log" id="statusLog">
+                <!-- Log entries will be written here dynamically -->
+            </div>
+
+            <div id="errorActions" style="display: none; margin-top: 1.5rem; gap: 1rem; justify-content: center;">
+                <button class="btn btn-secondary" id="closeOverlayBtn">
+                    <span>Close</span>
+                </button>
+                <button class="btn btn-primary" id="retryAgentBtn">
+                    <span>🔄 Retry Pipeline</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2026 CareerLens.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div class="alert-container" id="alertContainer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -15,7 +15,7 @@ def save_jobs(jobs):
         "title",
         "location",
         "match_score",
-        "job_skills",
+        "job_skills_gaps",
         "url",
     ]
 

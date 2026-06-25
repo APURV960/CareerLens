@@ -1,5 +1,6 @@
 import os
 from rag.vector_store import build_index
+# from src.rag.vector_store import build_index
 
 def load_documents():
 

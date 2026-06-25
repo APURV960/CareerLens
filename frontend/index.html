@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerLens - Next-Gen AI Career Discovery Platform</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"></span> CareerLens
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="upload.html" class="nav-link">Upload</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="history.html" class="nav-link">History</a></li>
+                    <li class="session-badge">
+                        <span class="session-indicator"></span>
+                        <span id="sessionText">Loading...</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="app-content">
+        <!-- Hero Section -->
+        <section class="container homepage-hero">
+            <div class="badge-glow">
+                <span>✨</span> Powered by Gemini 3.5 & Sentence Transformers
+            </div>
+            <h1>Navigate Your Career Path With Mathematical Precision</h1>
+            <p class="tagline">Upload your resume once. Our AI agent discovers open positions, calculates multi-signal relevance rankings, identifies skill gaps, and tailors cover letters instantly.</p>
+            
+            <div class="cta-group">
+                <a href="upload.html" class="btn btn-primary">
+                    <span>🚀 Get Started (Upload Resume)</span>
+                </a>
+                <a href="dashboard.html" class="btn btn-secondary">
+                    <span>🤖 Open AI Dashboard</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Overview Grid -->
+        <section class="container features-section">
+            <div class="section-title-wrapper">
+                <h2>Supercharged Career Matching</h2>
+                <p>CareerLens acts as your personal AI job search assistant, automating the repetitive parts of applying and analyzing positions.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">📄</div>
+                    <h3>Resume Parser</h3>
+                    <p style="margin-bottom: 0;">Extracts technical abilities, key soft skills, and experience metrics automatically from standard PDF files using Named Entity Recognition.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">🔍</div>
+                    <h3>Semantic Matching</h3>
+                    <p style="margin-bottom: 0;">Scours live job registries using targeted query structures, matching titles and job descriptions rather than simple keyword lists.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">⚖️</div>
+                    <h3>Multi-Signal Scoring</h3>
+                    <p style="margin-bottom: 0;">Combines semantic similarities, skill overlap percentages, job title matching, work settings, and experience requirements to compute confidence scores.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">📈</div>
+                    <h3>Career Roadmap</h3>
+                    <p style="margin-bottom: 0;">Pinpoints critical skill gaps, measures market demand, and links to official documentation, courses, and repositories to help you close those gaps.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">✉️</div>
+                    <h3>Tailored Cover Letters</h3>
+                    <p style="margin-bottom: 0;">Generates customized cover letters using advanced LLMs tailored directly to your profile and the selected employer’s requirements.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">📊</div>
+                    <h3>Application Tracker</h3>
+                    <p style="margin-bottom: 0;">Keep track of discovered opportunities. Monitor progress from 'Generated' to 'Applied', 'Interviewing', and ultimate 'Offers' in real-time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="container steps-section">
+            <div class="section-title-wrapper" style="margin-bottom: 2rem;">
+                <h2>How CareerLens Works</h2>
+                <p>Four simple steps to transform your job search workflow.</p>
+            </div>
+            
+            <div class="steps-list">
+                <div class="step-item">
+                    <div class="step-num">01</div>
+                    <h4 class="step-title">Upload Profile</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 0;">Upload your PDF resume. The system registers the file and extracts technical skill profiles.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">02</div>
+                    <h4 class="step-title">Execute Agent</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 0;">Trigger the background AI worker. It constructs search queries and ranks live listings in real-time.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">03</div>
+                    <h4 class="step-title">Close Skill Gaps</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 0;">Review missing requirements alongside demand indicators and curated online courses.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">04</div>
+                    <h4 class="step-title">Apply & Track</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 0;">Edit and download tailored cover letters, export matches, and track your application progress.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Accordion Section -->
+        <section class="container faq-section">
+            <div class="section-title-wrapper" style="margin-bottom: 2.5rem;">
+                <h2>Frequently Asked Questions</h2>
+                <p>Have questions about how our AI pipelines find your matches?</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does the semantic matching algorithm calculate scores?</span>
+                        <span class="faq-chevron">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Unlike basic matching that searches for exact words, we use Sentence Transformers to encode your resume and open roles into high-dimensional vectors, evaluating overall context. This is combined with specific weights for skill overlaps, title similarity, work settings, and experience.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is my resume stored securely?</span>
+                        <span class="faq-chevron">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, all resumes are stored in your secure, isolated PostgreSQL schema. Files are mapped to your local session identifier on your machine, ensuring complete privacy.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I edit cover letters before applying?</span>
+                        <span class="faq-chevron">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely. We provide an interactive inline editor on the results page. You can customize the cover letter body directly in the browser before copying it or downloading it as a text file.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p style="margin-bottom: 0.5rem;">&copy; 2026 CareerLens</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Built with Vanilla HTML, CSS, and JS. Seamless PostgreSQL, FastAPI, and Gemini Integration.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sessionText = document.getElementById('sessionText');
+            if (sessionText) {
+                const sid = getOrCreateSessionId();
+                sessionText.textContent = sid.substring(0, 8) + '...';
+                sessionText.title = `Full Session ID: ${sid}`;
+            }
+            
+            // FAQ expansion triggers
+            document.querySelectorAll('.faq-question').forEach(item => {
+                item.addEventListener('click', () => {
+                    const faqItem = item.parentElement;
+                    faqItem.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

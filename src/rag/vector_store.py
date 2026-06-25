@@ -1,45 +1,73 @@
-from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import os
+import json
+import threading
+from services.embedding_service import EmbeddingService
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
+INDEX_PATH = "data/career_doc_index.faiss"
+CHUNKS_PATH = "data/career_doc_chunks.json"
 
-documents = []
-index = None
+_index = None
+_documents = None
+_lock = threading.Lock()
 
+def load_index():
+    """
+    Thread-safe lazy loading of the FAISS index and documents from disk.
+    """
+    global _index, _documents
+    if _index is None:
+        with _lock:
+            if _index is None:
+                if not os.path.exists(INDEX_PATH) or not os.path.exists(CHUNKS_PATH):
+                    raise RuntimeError(
+                        f"FAISS Index files not initialized at {INDEX_PATH}. "
+                        "Please run 'src/rag/initialize_index.py' first."
+                    )
+                _index = faiss.read_index(INDEX_PATH)
+                with open(CHUNKS_PATH, "r", encoding="utf-8") as f:
+                    _documents = json.load(f)
 
 def build_index(text_chunks):
+    """
+    Builds and registers index in-memory (useful for dynamic scenarios or testing).
+    Updates global state in a thread-safe manner.
+    """
+    global _index, _documents
+    emb_service = EmbeddingService()
+    embeddings = emb_service.encode(text_chunks)
+    
+    embeddings_np = np.array(embeddings).astype("float32")
+    dimension = embeddings_np.shape[1]
 
-    global index
-    global documents
+    new_index = faiss.IndexFlatL2(dimension)
+    new_index.add(embeddings_np)
 
-    embeddings = model.encode(text_chunks)
-
-    dimension = embeddings.shape[1]
-
-    index = faiss.IndexFlatL2(dimension)
-    index.add(np.array(embeddings))
-
-    documents = text_chunks
-
+    with _lock:
+        _index = new_index
+        _documents = text_chunks
 
 def search(query, k=3):
+    """
+    Searches the FAISS index for the most similar career advice chunks.
+    """
+    global _index, _documents
+    
+    # Ensure index is loaded (from disk if not already built in memory)
+    if _index is None:
+        load_index()
 
-    global index
+    emb_service = EmbeddingService()
+    query_vector = emb_service.encode([query])
+    query_np = np.array(query_vector).astype("float32")
 
-    if index is None:
-        raise RuntimeError(
-            "Vector index not initialized. Run ingest_docs() first."
-        )
-
-    query_vector = model.encode([query])
-
-    distances, indices = index.search(query_vector, k)
+    distances, indices = _index.search(query_np, k)
 
     results = []
-
     for i in indices[0]:
-        results.append(documents[i])
+        # Protect against out of range index results
+        if 0 <= i < len(_documents):
+            results.append(_documents[i])
 
     return results

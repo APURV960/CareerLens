@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Resume - CareerLens</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"></span> CareerLens
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="upload.html" class="nav-link active">Upload</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="history.html" class="nav-link">History</a></li>
+                    <li class="session-badge">
+                        <span class="session-indicator"></span>
+                        <span id="sessionText">Loading...</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="app-content">
+        <div class="container">
+            <div class="upload-wrapper">
+                <div class="glass-card">
+                    <h2>Upload Your Resume</h2>
+                    <p style="margin-bottom: 2rem;">Upload your resume in PDF format. We will parse and analyze it to extract your core technical and professional skills instantly.</p>
+                    
+                    <!-- Drag and Drop Area -->
+                    <div class="drop-zone" id="dropZone">
+                        <span class="drop-zone-icon">📁</span>
+                        <h3>Drag & Drop PDF here</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0;">or click to browse your files</p>
+                        <input type="file" id="fileInput" accept=".pdf">
+                        <div class="file-info" id="fileInfo" style="display: none;"></div>
+                    </div>
+
+                    <div class="upload-actions">
+                        <button class="btn btn-primary" id="uploadBtn" disabled>
+                            <span>📤 Upload Resume</span>
+                        </button>
+                    </div>
+
+                    <!-- Response / Result Section -->
+                    <div class="upload-results" id="resultsSection" style="display: none;">
+                        <h3 style="color: var(--color-emerald); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                            <span>✓</span> Resume Successfully Processed!
+                        </h3>
+                        
+                        <div class="metadata-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="metadata-item" style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); padding: 0.75rem 1rem; border-radius: var(--radius-sm);">
+                                <div class="metadata-label" style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">Resume ID</div>
+                                <div class="metadata-value" id="resIdVal" style="font-weight: 600;">-</div>
+                            </div>
+                            <div class="metadata-item" style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); padding: 0.75rem 1rem; border-radius: var(--radius-sm);">
+                                <div class="metadata-label" style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">Version ID</div>
+                                <div class="metadata-value" id="resVerVal" style="font-weight: 600;">-</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <div class="metadata-label" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600;">Extracted Skills</div>
+                            <div class="skills-list" id="skillsList">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: center; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                            <a href="dashboard.html" class="btn btn-accent" style="width: 100%;">
+                                <span>🤖 Proceed to Job Agent Dashboard</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2026 CareerLens.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div class="alert-container" id="alertContainer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/upload.js"></script>
+</body>
+</html>

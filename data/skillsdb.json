@@ -3,7 +3,7 @@
   "machine learning": ["machine learning", "ml"],
   "deep learning": ["deep learning", "neural networks"],
   "aws": ["aws", "amazon web services"],
-  "docker": ["docker"],
+  "docker": ["docker","containers"],
   "kubernetes": ["kubernetes", "k8s"],
   "react": ["react", "reactjs"],
   "node": ["node", "nodejs"],

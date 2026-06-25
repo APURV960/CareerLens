@@ -1,31 +1,53 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
+*.pyo
+*.pyd
 
 # Virtual environments
 venv/
-env/
-.venv/
-
-# Environment variables
 .env
+.env.*
 
-# Python build artifacts
-build/
-dist/
-*.egg-info/
-.eggs/
+# IDE
+.vscode/
+.idea/
 
 # Logs
 *.log
+backend_startup.log
+
+# Runtime folders
+output/
+storage/
+
+# Temporary
+scratch/
+temp/
+tmp/
+
+# Documentation generated locally
+filestruct.txt
 
 # OS files
 .DS_Store
 Thumbs.db
 
-# Project-specific ignores
-mc.py
+# Python cache
+.pytest_cache/
+.mypy_cache/
 
+# Coverage
+.coverage
+htmlcov/
 
-testdb.py
+# Build
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node (future-proof)
+node_modules/
