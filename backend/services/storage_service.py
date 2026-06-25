@@ -55,3 +55,15 @@ class S3StorageProvider(StorageProvider):
         # response = self.s3.get_object(Bucket=self.bucket_name, Key=key)
         # return response['Body'].read()
         raise NotImplementedError("Cloud AWS S3 Provider is pre-configured but not active in MVP.")
+
+def get_storage_provider() -> StorageProvider:
+    """
+    Factory function returning the configured StorageProvider instance.
+    Enables clean dependency inversion for different environments (local vs cloud).
+    """
+    from backend.config import settings
+    provider_type = getattr(settings, "STORAGE_PROVIDER", "local").lower()
+    if provider_type == "s3":
+        return S3StorageProvider(getattr(settings, "S3_BUCKET_NAME", "career-lens-resumes"))
+    return LocalStorageProvider()
+

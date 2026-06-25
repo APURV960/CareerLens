@@ -53,3 +53,28 @@ def save_new_resume(user_id: int, storage_key: str, resume_text: str, skills: li
             )
             row = cur.fetchone()
             return {"id": row[0], "version": row[1]}
+
+def get_resume_by_id(resume_id: int) -> dict:
+    """Retrieves a specific resume version by its ID."""
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT id, user_id, storage_key, resume_text, extracted_skills, version 
+                FROM resumes 
+                WHERE id = %s
+                """,
+                (resume_id,)
+            )
+            row = cur.fetchone()
+            if not row:
+                return None
+            return {
+                "id": row[0],
+                "user_id": row[1],
+                "storage_key": row[2],
+                "resume_text": row[3],
+                "extracted_skills": row[4],
+                "version": row[5]
+            }
+

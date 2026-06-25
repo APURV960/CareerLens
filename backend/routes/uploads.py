@@ -1,21 +1,23 @@
 from fastapi import APIRouter, UploadFile, File, Depends, HTTPException
 from backend.auth.dependencies import get_current_user
-from backend.services.storage_service import LocalStorageProvider
+from backend.services.storage_service import get_storage_provider, StorageProvider
 from backend.repositories.resume_repository import save_new_resume
-from resume_parser import parse_resume
-from skill_extractor import extract_skills
+from src.resume_parser import parse_resume
+from src.skill_extractor import extract_skills
 import os
 import tempfile
-import time
 
 router = APIRouter(prefix="/uploads", tags=["Uploads"])
-storage = LocalStorageProvider()
 
 @router.post("/resume")
-async def upload_resume(file: UploadFile = File(...), current_user: dict = Depends(get_current_user)):
+async def upload_resume(
+    file: UploadFile = File(...), 
+    current_user: dict = Depends(get_current_user),
+    storage: StorageProvider = Depends(get_storage_provider)
+):
     """
-    Accepts PDF uploads, stores them securely under user-isolated storage keys,
-    parses their skills, and saves versioned metadata in PostgreSQL.
+    Accepts PDF uploads, stores them securely under user-isolated storage keys
+    via the configured StorageProvider, parses their skills, and saves versioned metadata in PostgreSQL.
     """
     if not file.filename.endswith('.pdf'):
         raise HTTPException(status_code=400, detail="Only PDF resumes are supported.")
@@ -26,8 +28,11 @@ async def upload_resume(file: UploadFile = File(...), current_user: dict = Depen
     user_dir = f"user_{current_user['id']}"
     storage_key = f"{user_dir}/resume.pdf"
     
-    # 1. Save using Abstraction provider (will overwrite user's latest resume on disk)
-    storage.save(file_bytes, storage_key)
+    # 1. Save using Abstraction provider (will overwrite user's latest resume on disk or cloud bucket)
+    try:
+        storage.save(file_bytes, storage_key)
+    except Exception as storage_err:
+        raise HTTPException(status_code=500, detail=f"Storage save operation failed: {str(storage_err)}")
     
     # 2. Parse text (using a temp file to pass bytes buffer to pdfplumber)
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
@@ -59,3 +64,4 @@ async def upload_resume(file: UploadFile = File(...), current_user: dict = Depen
         "skills": skills,
         "session_id": current_user.get("session_id")
     }
+

@@ -1,5 +1,5 @@
 from fastapi import Request, Header, HTTPException
-from backend.repositories.db_pool import get_db_connection
+from backend.repositories.user_repository import get_or_create_anonymous_user
 import jwt
 import os
 import uuid
@@ -37,20 +37,15 @@ def get_current_user(request: Request, authorization: str = Header(None), x_sess
     if not session_uuid:
         session_uuid = uuid.UUID(
             "11111111-1111-1111-1111-111111111111"
-    )
+        )
 
-    # Query or create transient anonymous user row
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("SELECT id, session_id, is_anonymous FROM users WHERE session_id = %s", (str(session_uuid),))
-            row = cur.fetchone()
-            if row:
-                return {"id": row[0], "session_id": str(row[1]), "is_anonymous": True}
-            
-            # Auto-register this anonymous session as a new row in users
-            cur.execute(
-                "INSERT INTO users (session_id, is_anonymous) VALUES (%s, TRUE) RETURNING id",
-                (str(session_uuid),)
-            )
-            new_id = cur.fetchone()[0]
-            return {"id": new_id, "session_id": str(session_uuid), "is_anonymous": True}
+    # Query or create transient anonymous user row safely in the repository
+    try:
+        user = get_or_create_anonymous_user(str(session_uuid))
+        return user
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to resolve anonymous session user context: {str(e)}"
+        )
+

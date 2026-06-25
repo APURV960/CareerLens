@@ -4,8 +4,9 @@
  */
 
 const API_CONFIG = {
-    BASE_URL: 'http://localhost:8000/api',
-    // Fallback URL if running on a different port or server
+    BASE_URL: window.location.port === '8000' || (!window.location.origin.includes('localhost') && !window.location.origin.includes('127.0.0.1'))
+        ? `${window.location.origin}/api`
+        : 'http://localhost:8000/api',
     getOrigin() {
         return this.BASE_URL;
     }
@@ -51,12 +52,17 @@ async function apiRequest(endpoint, options = {}) {
         // Handle server/network errors
         if (!response.ok) {
             let errorMessage = 'An error occurred while communicating with the server.';
+            const clone = response.clone();
             try {
                 const errData = await response.json();
                 errorMessage = errData.detail || errorMessage;
             } catch (e) {
                 // If response is not JSON, get raw text or default
-                errorMessage = await response.text() || errorMessage;
+                try {
+                    errorMessage = await clone.text() || errorMessage;
+                } catch (textErr) {
+                    // Ignore text reading error
+                }
             }
             const error = new Error(errorMessage);
             error.status = response.status;
