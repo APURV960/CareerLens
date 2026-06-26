@@ -31,6 +31,14 @@ Standard Python imports of massive modules like PyTorch, SentenceTransformers, s
 * Configured the container `CMD` to shell format to dynamically bind to the `$PORT` environment variable:
   `CMD ["sh", "-c", "uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8080}"]`
 
+### 5. Deployment Audit Startup Fingerprints (`backend/main.py`)
+* Added unmistakable fingerprints that print immediately when the backend main module is loaded:
+  ```
+  CAREERLENS BUILD VERSION: 894d33cf0fd0fb79c917bf8fafb91b219ff2ee59 (WITH_LAZY_IMPORTS)
+  STARTUP MODE: LAZY
+  MAIN.PY VERSION: 2026-06-26T19:40:00+05:30
+  ```
+
 ---
 
 ## 2. Local Verification Results
@@ -42,9 +50,14 @@ Running our tracing scripts, we observed a massive decrease in startup dependenc
 * **Total backend initialization time**: Down from **33.79 seconds** to **under 2.13 seconds**!
 
 ### 2. Millisecond Server Boot & Immediate Health Check Response
-We started Uvicorn locally on port `8080` and queried the `/health` endpoint:
+We started Uvicorn locally on port `8080` and verified that the fingerprints and server launch events execute in order:
 ```
-INFO:     Started server process [14784]
+==================================================
+CAREERLENS BUILD VERSION: bd7c11655f047d77f084ff5d1ae8d247bfbc516d (WITH_LAZY_IMPORTS)
+STARTUP MODE: LAZY
+MAIN.PY VERSION: 2026-06-26T19:40:00+05:30
+==================================================
+INFO:     Started server process [27052]
 INFO:     Waiting for application startup.
 [LIFESPAN] CareerLens server process starting...
 INFO:     Application startup complete.
