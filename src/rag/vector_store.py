@@ -25,9 +25,11 @@ def load_index():
                         f"FAISS Index files not initialized at {INDEX_PATH}. "
                         "Please run 'src/rag/initialize_index.py' first."
                     )
+                print(f"[FAISS] Loading FAISS index from {INDEX_PATH} lazily...")
                 _index = faiss.read_index(INDEX_PATH)
                 with open(CHUNKS_PATH, "r", encoding="utf-8") as f:
                     _documents = json.load(f)
+                print(f"[FAISS] FAISS index loaded successfully with {len(_documents)} documents.")
 
 def build_index(text_chunks):
     """

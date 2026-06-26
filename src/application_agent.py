@@ -10,9 +10,11 @@ _client = None
 def _get_client():
     global _client
     if _client is None:
+        print("[GEMINI] Initializing Gemini API client lazily...")
         _client = genai.Client(
             api_key=os.getenv("GEMINI_API_KEY")
         )
+        print("[GEMINI] Gemini API client initialized successfully.")
     return _client
 
 def _is_quota_error(exc: Exception) -> bool:

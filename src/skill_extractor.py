@@ -14,7 +14,9 @@ _cache_lock = threading.Lock()
 def _get_nlp():
     global _nlp
     if _nlp is None:
+        print("[SPACY] Loading model 'en_core_web_sm' lazily...")
         _nlp = spacy.load("en_core_web_sm")
+        print("[SPACY] Model 'en_core_web_sm' loaded successfully.")
     return _nlp
 
 def load_skill_db():
@@ -41,10 +43,12 @@ def get_cached_skills_embeddings():
     if _skills_embeddings is None:
         with _cache_lock:
             if _skills_embeddings is None:
+                print("[SKILL CACHE] Generating skill database embeddings lazily...")
                 skill_db = load_skill_db()
                 _skills_list = list(skill_db.keys())
                 emb_service = EmbeddingService()
                 _skills_embeddings = emb_service.encode(_skills_list)
+                print(f"[SKILL CACHE] Successfully cached {len(_skills_list)} skill embeddings.")
     return _skills_list, _skills_embeddings
 
 def detect_skills(phrases, skills, skill_embeddings):

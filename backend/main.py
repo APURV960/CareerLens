@@ -15,55 +15,13 @@ from backend.routes import uploads, agent, results
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
-    Lifespan context manager that handles startup resource preloading
-    to prevent first-request latency spikes on production targets.
+    Lifespan context manager that handles server lifecycle events.
+    Heavy AI resources are initialized lazily on their first invocation
+    to satisfy serverless startup probe constraints.
     """
-    print("----- [STARTUP] Preloading CareerLens AI Resources -----")
-    
-    # 1. Preload SentenceTransformer model
-    try:
-        from src.services.embedding_service import EmbeddingService
-        emb_service = EmbeddingService()
-        _ = emb_service.model
-        print("[STARTUP] SentenceTransformer model loaded successfully.")
-    except Exception as e:
-        print(f"[STARTUP] Error loading SentenceTransformer: {e}")
-
-    # 2. Preload spaCy English model
-    try:
-        from src.skill_extractor import _get_nlp
-        _ = _get_nlp()
-        print("[STARTUP] spaCy English model loaded successfully.")
-    except Exception as e:
-        print(f"[STARTUP] Error loading spaCy: {e}")
-
-    # 3. Preload Skill Database and its embeddings cache
-    try:
-        from src.skill_extractor import get_cached_skills_embeddings
-        _, _ = get_cached_skills_embeddings()
-        print("[STARTUP] Skills database embeddings cached successfully.")
-    except Exception as e:
-        print(f"[STARTUP] Error preloading skills embeddings: {e}")
-
-    # 4. Preload FAISS vector store index (from disk if initialized)
-    try:
-        from src.rag.vector_store import load_index
-        load_index()
-        print("[STARTUP] FAISS vector index loaded successfully.")
-    except Exception as e:
-        print(f"[STARTUP] Warning: FAISS index could not be preloaded: {e}")
-
-    # 5. Preload Gemini client
-    try:
-        from src.application_agent import _get_client
-        _ = _get_client()
-        print("[STARTUP] Gemini AI Client initialized.")
-    except Exception as e:
-        print(f"[STARTUP] Warning: Gemini Client could not be preloaded: {e}")
-
-    print("----- [STARTUP] CareerLens Preloading Complete -----")
+    print("[LIFESPAN] CareerLens server process starting...")
     yield
-    print("[SHUTDOWN] Cleaning up server resources.")
+    print("[LIFESPAN] CareerLens server process shutting down...")
 
 # Initialize FastAPI application with lifespan
 app = FastAPI(
@@ -102,6 +60,8 @@ app.mount(
 
 if __name__ == "__main__":
     import uvicorn
+    # Get port dynamically from environment variable to support Cloud Run/Render/Northflank
+    port = int(os.getenv("PORT", "8000"))
     # Execute uvicorn server target relative to root search path
-    uvicorn.run("backend.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("backend.main:app", host="0.0.0.0", port=port, reload=True)
 
