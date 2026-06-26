@@ -1,5 +1,4 @@
 import os
-from google import genai
 import dotenv
 from agent_utils.retry_helper import retry_with_backoff
 
@@ -11,6 +10,7 @@ def _get_client():
     global _client
     if _client is None:
         print("[GEMINI] Initializing Gemini API client lazily...")
+        from google import genai
         _client = genai.Client(
             api_key=os.getenv("GEMINI_API_KEY")
         )

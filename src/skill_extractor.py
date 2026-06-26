@@ -1,9 +1,7 @@
 import json
 import os
-import spacy
 import threading
 from services.embedding_service import EmbeddingService
-from sklearn.metrics.pairwise import cosine_similarity
 
 _nlp = None
 _skill_db = None
@@ -15,6 +13,7 @@ def _get_nlp():
     global _nlp
     if _nlp is None:
         print("[SPACY] Loading model 'en_core_web_sm' lazily...")
+        import spacy
         _nlp = spacy.load("en_core_web_sm")
         print("[SPACY] Model 'en_core_web_sm' loaded successfully.")
     return _nlp
@@ -55,6 +54,7 @@ def detect_skills(phrases, skills, skill_embeddings):
     if not phrases:
         return []
         
+    from sklearn.metrics.pairwise import cosine_similarity
     detected = []
     emb_service = EmbeddingService()
     phrase_embeddings = emb_service.encode(phrases)

@@ -1,4 +1,3 @@
-import faiss
 import numpy as np
 import os
 import json
@@ -25,6 +24,7 @@ def load_index():
                         f"FAISS Index files not initialized at {INDEX_PATH}. "
                         "Please run 'src/rag/initialize_index.py' first."
                     )
+                import faiss
                 print(f"[FAISS] Loading FAISS index from {INDEX_PATH} lazily...")
                 _index = faiss.read_index(INDEX_PATH)
                 with open(CHUNKS_PATH, "r", encoding="utf-8") as f:
@@ -43,6 +43,7 @@ def build_index(text_chunks):
     embeddings_np = np.array(embeddings).astype("float32")
     dimension = embeddings_np.shape[1]
 
+    import faiss
     new_index = faiss.IndexFlatL2(dimension)
     new_index.add(embeddings_np)
 

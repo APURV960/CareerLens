@@ -2,7 +2,6 @@ import json
 import threading
 import numpy as np
 from services.embedding_service import EmbeddingService
-from sklearn.metrics.pairwise import cosine_similarity
 
 _roles = None
 _role_embeddings = None
@@ -35,6 +34,7 @@ def generate_queries(resume_text, top_k=5):
     if not resume_text:
         return []
 
+    from sklearn.metrics.pairwise import cosine_similarity
     roles, role_embeddings = get_cached_role_embeddings()
 
     emb_service = EmbeddingService()

@@ -1,5 +1,4 @@
 import threading
-from sentence_transformers import SentenceTransformer
 
 class EmbeddingService:
     """
@@ -25,6 +24,7 @@ class EmbeddingService:
         if self._model is None:
             # Load the model only when it is actually needed
             print("[AI MODEL] Initializing SentenceTransformer('all-MiniLM-L6-v2') lazily...")
+            from sentence_transformers import SentenceTransformer
             self._model = SentenceTransformer("all-MiniLM-L6-v2")
             print("[AI MODEL] SentenceTransformer model loaded successfully.")
         return self._model

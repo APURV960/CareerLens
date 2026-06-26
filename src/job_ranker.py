@@ -1,5 +1,4 @@
 from services.embedding_service import EmbeddingService
-from sklearn.metrics.pairwise import cosine_similarity
 from skillgap_analyzer import load_skill_db
 from skill_extractor import extract_skills
 
@@ -35,6 +34,7 @@ def rank_jobs(resume_text, jobs):
     if not jobs:
         return jobs
 
+    from sklearn.metrics.pairwise import cosine_similarity
     emb_service = EmbeddingService()
 
     # 1. Resume embedding and title list extraction
