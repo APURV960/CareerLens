@@ -3,9 +3,9 @@ import os
 from contextlib import asynccontextmanager
 
 print("==================================================")
-print("CAREERLENS BUILD VERSION: 19e1a805a8f60be354f73853df1e1f86686b56bb (WITH_LAZY_IMPORTS)")
+print("CAREERLENS BUILD VERSION: bd7c11655f047d77f084ff5d1ae8d247bfbc516d (WITH_LAZY_IMPORTS)")
 print("STARTUP MODE: LAZY")
-print("MAIN.PY VERSION: 2026-06-26T19:35:00+05:30")
+print("MAIN.PY VERSION: 2026-06-26T19:40:00+05:30")
 print("==================================================")
 
 # Programmatically add project root and AI src directories to python search path
