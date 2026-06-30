@@ -173,7 +173,7 @@ async function initResults() {
                     </select>
                 </td>
                 <td>
-                    <a href="${job.url}" target="_blank" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                    <a href="${job.original_apply_url || job.url}" target="_blank" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.25rem;">
                         <span>Apply</span> <span>↗</span>
                     </a>
                 </td>

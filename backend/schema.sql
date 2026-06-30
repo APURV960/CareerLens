@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS job_results (
     location VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     url VARCHAR(1024) NOT NULL,
+    original_apply_url VARCHAR(1024),
     match_score DOUBLE PRECISION NOT NULL,
     salary VARCHAR(100),                                -- Analytics Field
     employment_type VARCHAR(100),                       -- Analytics Field

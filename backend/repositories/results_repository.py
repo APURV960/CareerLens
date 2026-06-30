@@ -49,12 +49,13 @@ def save_job_results(user_id: int, search_run_id: str, jobs: list):
                 experience_level = job.get("experience_level", "Mid-Level")
                 work_setting = job.get("work_setting", "Hybrid")
                 posted_at = job.get("posted_at", "Recently")
+                original_apply_url = job.get("original_apply_url") or job.get("url")
                 
                 cur.execute(
                     """
                     INSERT INTO job_results 
-                    (user_id, search_run_id, title, company, location, description, url, match_score, salary, employment_type, source, experience_level, work_setting, posted_at)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    (user_id, search_run_id, title, company, location, description, url, original_apply_url, match_score, salary, employment_type, source, experience_level, work_setting, posted_at)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """,
                     (
                         user_id,
@@ -64,6 +65,7 @@ def save_job_results(user_id: int, search_run_id: str, jobs: list):
                         job["location"],
                         job["description"],
                         job["url"],
+                        original_apply_url,
                         job["match_score"],
                         salary,
                         employment_type,
@@ -156,7 +158,7 @@ def get_run_jobs(run_id: str, user_id: int) -> list:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT jr.id, jr.title, jr.company, jr.location, jr.match_score, jr.salary, jr.employment_type, jr.source, jr.url, jr.experience_level, jr.work_setting, jr.posted_at, ap.status 
+                SELECT jr.id, jr.title, jr.company, jr.location, jr.match_score, jr.salary, jr.employment_type, jr.source, jr.url, jr.original_apply_url, jr.experience_level, jr.work_setting, jr.posted_at, ap.status 
                 FROM job_results jr
                 LEFT JOIN applications ap ON jr.id = ap.job_result_id AND ap.user_id = %s
                 WHERE jr.search_run_id = %s
@@ -175,10 +177,11 @@ def get_run_jobs(run_id: str, user_id: int) -> list:
                     "employment_type": r[6] or "N/A", 
                     "source": r[7] or "Adzuna", 
                     "url": r[8],
-                    "experience_level": r[9] or "Mid-Level",
-                    "work_setting": r[10] or "Hybrid",
-                    "posted_at": r[11] or "Just now",
-                    "application_status": r[12] or "Generated"
+                    "original_apply_url": r[9] or r[8],
+                    "experience_level": r[10] or "Mid-Level",
+                    "work_setting": r[11] or "Hybrid",
+                    "posted_at": r[12] or "Just now",
+                    "application_status": r[13] or "Generated"
                 }
                 for r in cur.fetchall()
             ]
@@ -222,7 +225,7 @@ def get_run_job_export_data(run_id: str) -> list:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT company, title, location, match_score, salary, employment_type, source, url, experience_level, work_setting, posted_at 
+                SELECT company, title, location, match_score, salary, employment_type, source, COALESCE(original_apply_url, url), experience_level, work_setting, posted_at 
                 FROM job_results 
                 WHERE search_run_id = %s 
                 ORDER BY match_score DESC
