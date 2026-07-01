@@ -39,7 +39,7 @@ def determine_job_source(company_name, description):
 
 async def fetch_jobs(session, query):
 
-    url = "https://api.adzuna.com/v1/api/jobs/gb/search/1"
+    url = "https://api.adzuna.com/v1/api/jobs/in/search/1"
 
     params = {
         "app_id": APP_ID,
